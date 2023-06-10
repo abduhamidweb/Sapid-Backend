@@ -13,7 +13,7 @@ export interface IUser extends Document {
 }
 export interface IProduct extends Document {
     category: 'lavash' | 'shurva' | 'burger' | 'xot-dog' | 'pizza' | 'ichimlik';
-    img: string;
+    img?: string;
     title: string;
     description: string;
     price: number;

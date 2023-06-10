@@ -12,12 +12,12 @@ const productSchema = new Schema<IProduct>({
     },
     title: {
         type: String,
-        maxlength: 20,
+        maxlength: 50,
         required: true
     },
     description: {
         type: String,
-        maxlength: 15,
+        maxlength: 100,
         required: true
     },
     price: {
