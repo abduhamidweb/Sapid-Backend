@@ -1,5 +1,6 @@
 import express, { Application, Request, Response, NextFunction } from "express";
-import { connectToDatabase } from "../db/db.js";
+// import { connectToDatabase } from "../db/db.js";
+import "../db/mongo.js"
 import fileUpload from "express-fileupload";
 import cors from "cors"
 // import "../db/mongo.js"
@@ -26,8 +27,9 @@ app.use('/api/product', productRouter);
 app.use('/api', productRouter);
 app.use(errorMiddleware);
 // app.listen(PORT, () => console.log("Server listening on port" + PORT));
+app.listen(PORT, () => console.log("Server listening on port" + PORT));
 
-connectToDatabase().then(() => {
-    app.listen(PORT, () => console.log("Server listening on port" + PORT));
+// connectToDatabase().then(() => {
+    // app.listen(PORT, () => console.log("Server listening on port" + PORT));
 
-});    
+// });    
