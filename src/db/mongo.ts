@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 mongoose
-  .connect('mongodb+srv://abduhamidbotirovweb:abduhamidjon707@cluster0.ab9kvno.mongodb.net/sapid?retryWrites=true&w=majority')
+  .connect('mongodb+srv://abduhamidbotirovweb:abduhamidjon707@cluster0.ab9kvno.mongodb.net/sapid2?retryWrites=true&w=majority')
   .then(() => {
     console.log('MongoDB-ga muvaffaqiyatli ulandik');
   })
