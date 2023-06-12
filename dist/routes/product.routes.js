@@ -1,9 +1,8 @@
 import { Router } from 'express';
 import { ProductController } from './../controllers/product.contr.js';
 import authMiddleware from '../middleware/auth.js';
-
-const router: Router = Router();
-const controller: ProductController = new ProductController();
+const router = Router();
+const controller = new ProductController();
 router.get('/', controller.getAllProducts);
 router.get('/:id', controller.getProductById);
 // router.get('/category/:category', controller.getProductByCategory);

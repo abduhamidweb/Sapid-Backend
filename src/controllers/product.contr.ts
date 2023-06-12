@@ -3,7 +3,9 @@ import { IProduct } from '../interface/interface';
 import Product from '../schemas/Product.schema.js';
 import * as path from 'path';
 import * as fs from 'fs';
-
+import redis from "redis";
+const client = redis.createClient();
+client.connect();
 function pathJoin(filename: string): string {
     const newPath = filename.split(' ').join('-');
     return path.normalize(newPath);
@@ -19,10 +21,29 @@ function isFile(filePath: string): boolean {
 export class ProductController {
     public async getAllProducts(req: Request, res: Response): Promise<void> {
         try {
-            const products: IProduct[] = await Product.find();
-            res.json(products);
+            let { category, id } = req.query;
+            const getData = await client.get("products");
+            if (getData) {
+                const parsedData: IProduct[] = JSON.parse(getData);
+                if (category) {
+                    let filterdataByCategory = parsedData.filter(product => product.category == category);
+                    res.send(filterdataByCategory);
+                } else if (id) {
+                    let filterdataByCategory = parsedData.filter(product => product._id == id);
+                    res.send(filterdataByCategory);
+                } else if (Object.keys(req.query).length === 0) {
+                    res.json(parsedData);
+                }
+            } else {
+                const products: IProduct[] = await Product.find();
+                const productsJSON = JSON.stringify(products);
+                await client.set("products", productsJSON);
+                res.json(products);
+            }
         } catch (error) {
             res.status(500).json({ error: 'Server error' });
+        } finally {
+            // await client.quit();
         }
     }
 
@@ -43,9 +64,8 @@ export class ProductController {
     public async getProductByCategory(req: Request, res: Response): Promise<void> {
         const productCategory: string = req.params.category as string;
         try {
-            const product: IProduct | null = await Product.findOne({ category: productCategory });
+            const product: IProduct[] | null = await Product.find({ category: productCategory });
             if (product) {
-                await product.save();
                 res.json(product);
             } else {
                 res.status(404).json({ error: 'Product not found' });
