@@ -3,7 +3,7 @@ import express from "express";
 import "../db/mongo.js";
 import fileUpload from "express-fileupload";
 import cors from "cors";
-// import "../db/mongo.js"
+import "../db/mongo.js";
 const app = express();
 const PORT = Number(process.env.PORT) || 5000;
 import errorMiddleware from "../middleware/errorHandler.js";
@@ -29,5 +29,5 @@ app.use(errorMiddleware);
 // app.listen(PORT, () => console.log("Server listening on port" + PORT));
 app.listen(PORT, () => console.log("Server listening on port" + PORT));
 // connectToDatabase().then(() => {
-// app.listen(PORT, () => console.log("Server listening on port" + PORT));
+//     app.listen(PORT, () => console.log("Server listening on port" + PORT));
 // });    

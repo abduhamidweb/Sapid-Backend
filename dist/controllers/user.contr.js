@@ -12,7 +12,16 @@ import { sendConfirmationEmail } from '../utils/nodemailer.js';
 import { JWT } from '../utils/jwt.js';
 import sha256 from "sha256";
 import redis from "redis";
-const client = redis.createClient();
+const client = redis.createClient({
+    url: "redis://default:cWORnYkLiNeTFRVuauwwTN3exTNYLoDi@redis-12791.c291.ap-southeast-2-1.ec2.cloud.redislabs.com:12791"
+});
+client.on("connect", function () {
+    console.log("Redis serverga muvaffaqiyatli bog'landi");
+});
+// Xatolik yuz berib qolganida
+client.on("error", function (error) {
+    console.error("Redis serverga bog'lanishda xatolik yuz berdi:", error);
+});
 client.connect();
 class UserController {
     // Yeni foydalanuvchi qo'shish 
