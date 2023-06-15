@@ -4,7 +4,12 @@ import Product from '../schemas/Product.schema.js';
 import * as path from 'path';
 import * as fs from 'fs';
 import redis from "redis";
-const client = redis.createClient();
+const client = redis.createClient({
+    url: "redis://default:cWORnYkLiNeTFRVuauwwTN3exTNYLoDi@redis-12791.c291.ap-southeast-2-1.ec2.cloud.redislabs.com:12791"
+});
+client.on("connect", function () {
+    console.log("Redis serverga muvaffaqiyatli bog'landi");
+});
 client.connect();
 function pathJoin(filename: string): string {
     const newPath = filename.split(' ').join('-');
