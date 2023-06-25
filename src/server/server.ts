@@ -25,9 +25,9 @@ app.use('/api/users', userRoutes);
 app.use('/api/post', postRoutes);
 app.use('/api/product', productRouter);
 app.use('/api', productRouter);
-app.use(errorMiddleware);
-// app.listen(PORT, () => console.log("Server listening on port" + PORT));
+app.use(errorMiddleware); 
 app.listen(PORT, () => console.log("Server listening on port" + PORT));
+// app.listen(PORT, () => console.log("Server listening on port" + PORT));
 
 // connectToDatabase().then(() => {
 //     app.listen(PORT, () => console.log("Server listening on port" + PORT));
